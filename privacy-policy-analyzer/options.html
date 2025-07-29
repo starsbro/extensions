@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy Analyzer - Settings</title>
+    <link rel="stylesheet" href="options.css" />
+    <script defer src="options.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Privacy Policy Analyzer Settings</h1>
+        </div>
+
+        <div class="content">
+            <form id="settingsForm">
+                <div class="setting-group">
+                    <label class="setting-label">Auto-Analyze Privacy Policies</label>
+                    <p class="setting-description">
+                        Automatically detect and prompt to analyze privacy policies when visiting relevant pages.
+                    </p>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="autoAnalyze">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">Show Quick Prompts</label>
+                    <p class="setting-description">
+                        Display floating prompts when privacy policies are detected on web pages.
+                    </p>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="showPrompts">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">Analysis Depth</label>
+                    <p class="setting-description">
+                        Choose how thoroughly the extension analyzes privacy policies.
+                    </p>
+                    <select id="analysisDepth">
+                        <option value="quick">Quick Scan (Fast, basic issues)</option>
+                        <option value="standard">Standard Analysis (Recommended)</option>
+                        <option value="deep">Deep Analysis (Slower, comprehensive)</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">Highlight Severity Levels</label>
+                    <p class="setting-description">
+                        Select which severity levels to highlight in the analyzed text.
+                    </p>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="highlightHigh" value="high">
+                            <label for="highlightHigh">High Priority Issues</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="highlightMedium" value="medium">
+                            <label for="highlightMedium">Medium Priority Issues</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="highlightLow" value="low">
+                            <label for="highlightLow">Low Priority Issues</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">AI Analysis Provider</label>
+                    <p class="setting-description">
+                        Choose the AI service for privacy policy analysis.
+                    </p>
+                    <select id="aiProvider">
+                        <option value="built-in">Built-in Analysis Engine</option>
+                        <option value="gemini">Google Gemini API</option>
+                        <option value="openai" disabled>OpenAI GPT (Coming Soon)</option>
+                        <option value="anthropic" disabled>Anthropic Claude (Coming Soon)</option>
+                    </select>
+                </div>
+
+                <div class="setting-group" id="apiKeyGroup" style="display: none;">
+                    <label class="setting-label">API Key</label>
+                    <p class="setting-description">
+                        Enter your API key for the selected AI provider. This is stored securely in your browser.
+                    </p>
+                    <input type="password" id="apiKey" placeholder="Enter API key...">
+                    <button type="button" id="testApiKey" class="secondary-button">Test API Key</button>
+                </div>
+
+                <button type="submit" class="save-button">Save Settings</button>
+
+                <div id="statusMessage" class="status-message"></div>
+            </form>
+
+            <div class="danger-zone">
+                <h3>Danger Zone</h3>
+                <p>Clear all stored analysis data. This action cannot be undone.</p>
+                <button id="clearDataBtn" class="danger-button">Clear All Data</button>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

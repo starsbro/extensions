@@ -1,0 +1,43 @@
+{
+    "name": "privacy-policy-analyzer",
+    "version": "1.0.0",
+    "description": "Chrome extension that analyzes privacy policies and highlights concerning clauses with AI-powered legal suggestions",
+    "main": "background.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "echo \"No build process needed for basic extension\"",
+        "dev": "echo \"Load unpacked extension in Chrome\"",
+        "lint": "eslint *.js",
+        "format": "prettier --write *.js *.json *.html *.css"
+    },
+    "keywords": [
+        "chrome-extension",
+        "privacy",
+        "policy",
+        "analyzer",
+        "ai",
+        "legal",
+        "gdpr",
+        "ccpa",
+        "data-protection"
+    ],
+    "author": "starsbro",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/starsbro/extensions.git"
+    },
+    "bugs": {
+        "url": "https://github.com/starsbro/extensions/issues"
+    },
+    "homepage": "https://github.com/starsbro/extensions#readme",
+    "devDependencies": {
+        "eslint": "^8.0.0",
+        "prettier": "^2.8.0",
+        "puppeteer": "^21.0.0",
+        "sharp": "^0.32.0"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    }
+}

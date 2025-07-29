@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Privacy Policy Analyzer</title>
+    <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo"><img src="icons/icon48.png" alt="Privacy Policy Analyzer" /></div>
+        <h1>Privacy Policy Analyzer</h1>
+    </div>
+
+    <div id="status" class="status scanning">
+        Ready to analyze privacy policies
+    </div>
+
+    <div class="controls">
+        <button id="analyzeBtn" class="primary-btn">
+            Analyze Current Page
+        </button>
+        <button id="viewResultsBtn" class="secondary-btn" style="display: none;">
+            View Analysis Results
+        </button>
+        <button id="settingsBtn" class="secondary-btn">
+            Settings
+        </button>
+    </div>
+
+    <div id="results" class="results" style="display: none;">
+        <div id="issueCount"></div>
+    </div>
+
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <div>Analyzing privacy policy...</div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
