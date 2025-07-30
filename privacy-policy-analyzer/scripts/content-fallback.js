@@ -83,6 +83,63 @@ export class SimpleTextExtractor {
 
         return content.trim();
     }
+
+    static hasPrivacyContent() {
+        console.log('SimpleTextExtractor: Checking for privacy content...');
+
+        const text = document.body.textContent || document.body.innerText || '';
+        const lowerText = text.toLowerCase();
+
+        // Privacy indicators
+        const privacyIndicators = [
+            'privacy policy', 'privacy notice', 'data protection',
+            'personal data', 'personal information', 'cookies',
+            'data processing', 'data collection', 'privacy statement',
+            'information we collect', 'how we use', 'data sharing',
+            'third party', 'your rights', 'gdpr', 'data subject rights',
+            'opt out', 'consent', 'legitimate interest'
+        ];
+
+        let matchCount = 0;
+        const foundIndicators = [];
+
+        for (const indicator of privacyIndicators) {
+            if (lowerText.includes(indicator)) {
+                matchCount++;
+                foundIndicators.push(indicator);
+            }
+        }
+
+        // URL and title boost
+        const url = window.location.href.toLowerCase();
+        const title = document.title.toLowerCase();
+
+        if (url.includes('privacy') || url.includes('policy') ||
+            title.includes('privacy') || title.includes('policy')) {
+            matchCount += 2;
+            foundIndicators.push('URL/title match');
+        }
+
+        // Check for privacy-related headings
+        const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        for (const heading of headings) {
+            const headingText = heading.textContent.toLowerCase();
+            if (headingText.includes('privacy') || headingText.includes('policy')) {
+                matchCount++;
+                foundIndicators.push('privacy heading');
+                break;
+            }
+        }
+
+        const hasContent = matchCount >= 3;
+
+        console.log('SimpleTextExtractor: Content length:', text.length);
+        console.log('SimpleTextExtractor: Found indicators:', foundIndicators);
+        console.log('SimpleTextExtractor: Match count:', matchCount);
+        console.log('SimpleTextExtractor: Final detection result:', hasContent);
+
+        return hasContent;
+    }
 }
 
 // ============================================================================
@@ -170,6 +227,10 @@ export class SimplePrivacyPolicyAnalyzer {
             } else if (message.action === 'showAnalysisPanel') {
                 this.showAnalysisPanel();
                 sendResponse({ success: true });
+            } else if (message.action === 'checkContent') {
+                const hasContent = SimpleTextExtractor.hasPrivacyContent();
+                console.log('Privacy Policy Analyzer (Fallback): Content check result:', hasContent);
+                sendResponse({ hasPrivacyContent: hasContent });
             }
             return true;
         });

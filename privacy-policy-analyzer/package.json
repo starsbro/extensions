@@ -4,7 +4,12 @@
     "description": "Chrome extension that analyzes privacy policies and highlights concerning clauses with AI-powered legal suggestions",
     "main": "background.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "playwright test",
+        "test:headed": "playwright test --headed",
+        "test:debug": "playwright test --debug",
+        "test:ui": "playwright test --ui",
+        "test:report": "playwright show-report",
+        "install-browsers": "playwright install chromium",
         "build": "echo \"No build process needed for basic extension\"",
         "dev": "echo \"Load unpacked extension in Chrome\"",
         "lint": "eslint *.js",
@@ -32,6 +37,8 @@
     },
     "homepage": "https://github.com/starsbro/extensions#readme",
     "devDependencies": {
+        "@playwright/test": "^1.54.1",
+        "dotenv": "^17.2.1",
         "eslint": "^8.0.0",
         "prettier": "^2.8.0",
         "puppeteer": "^21.0.0",

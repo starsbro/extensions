@@ -8,30 +8,71 @@ import { GeminiAnalyzer } from './gemini-analyzer.js';
 
 export class PrivacyPolicyAnalyzer {
     constructor() {
+        console.log('Privacy Policy Analyzer: PrivacyPolicyAnalyzer constructor called');
         this.analysisData = null;
         this.isAnalyzing = false;
         this.progressElement = null;
 
         this.init();
+        console.log('Privacy Policy Analyzer: PrivacyPolicyAnalyzer initialized successfully');
     }
 
     init() {
+        console.log('Privacy Policy Analyzer: init() method called');
+
         // Make analyzer available globally for popup communication
         window.privacyAnalyzer = this;
+        console.log('Privacy Policy Analyzer: window.privacyAnalyzer set to:', this);
+        console.log('Privacy Policy Analyzer: Verification - window.privacyAnalyzer exists:', typeof window.privacyAnalyzer !== 'undefined');
 
+        // Register message listener multiple times to ensure it sticks
+        this.registerMessageListener();
+
+        // Also register after a delay in case something is interfering
+        setTimeout(() => {
+            this.registerMessageListener();
+        }, 1000);
+
+        // Report content detection status immediately
+        this.reportContentStatus();
+    }
+
+    registerMessageListener() {
         // Listen for messages from popup
-        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+        chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             if (message.action === 'startAnalysis') {
-                this.startAnalysis();
-                sendResponse({ success: true });
+                try {
+                    await this.startAnalysis();
+                    sendResponse({ success: true });
+                } catch (error) {
+                    console.error('Privacy Policy Analyzer: startAnalysis failed:', error);
+                    sendResponse({ success: false, error: error.message });
+                }
             } else if (message.action === 'showAnalysisPanel') {
                 this.showAnalysisPanel();
                 sendResponse({ success: true });
+            } else if (message.action === 'checkContent') {
+                const hasContent = TextExtractor.hasPrivacyContent();
+                const response = { hasPrivacyContent: hasContent };
+                sendResponse(response);
             }
             return true;
-        });
+        }); console.log('Privacy Policy Analyzer: Message listener registered successfully');
+    }
 
-        // CSS is loaded via manifest.json
+    reportContentStatus() {
+        try {
+            const hasContent = TextExtractor.hasPrivacyContent();
+            chrome.runtime.sendMessage({
+                action: 'contentDetected',
+                hasPrivacyContent: hasContent,
+                url: window.location.href
+            }).catch(error => {
+                // Background script might not be ready, ignore silently
+            });
+        } catch (error) {
+            console.error('Error reporting content status:', error);
+        }
     }
 
     async startAnalysis() {
@@ -59,12 +100,6 @@ export class PrivacyPolicyAnalyzer {
                     analysis = await GeminiAnalyzer.analyze(textContent, settings);
                 } catch (error) {
                     console.error('Gemini analysis failed, falling back to built-in:', error);
-
-                    // Check if it's a temporary service issue
-                    if (error.message.includes('503') || error.message.includes('overloaded') || error.message.includes('UNAVAILABLE')) {
-                        // Gemini API is temporarily overloaded, using built-in analyzer
-                    }
-
                     analysis = BuiltInAnalyzer.analyze(textContent);
                 }
             } else {
@@ -94,9 +129,7 @@ export class PrivacyPolicyAnalyzer {
         }
 
         this.isAnalyzing = false;
-    }
-
-    async storeResults(analysis) {
+    } async storeResults(analysis) {
         try {
             const tabId = await Utils.getCurrentTabId();
             await chrome.storage.local.set({

@@ -50,9 +50,38 @@ class PopupController {
         this.settingsBtn.addEventListener('click', () => this.openSettings());
     }
 
+    // Centralized tab detection method for consistency
+    async getCurrentTab() {
+        let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+        // If active tab has no URL (common in test environments), 
+        // look for a tab with a real website URL
+        if (!tab || !tab.url || tab.url === 'undefined') {
+            const allTabs = await chrome.tabs.query({ currentWindow: true });
+            const webTabs = allTabs.filter(t => t.url &&
+                t.url.startsWith('http') &&
+                !t.url.includes('chrome-extension://'));
+
+            if (webTabs.length > 0) {
+                // Use the most recently accessed web tab
+                tab = webTabs.sort((a, b) => b.id - a.id)[0];
+            } else {
+                return null;
+            }
+        }
+
+        return tab;
+    }
+
     async loadCurrentStatus() {
         try {
-            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            const tab = await this.getCurrentTab();
+
+            if (!tab) {
+                this.updateStatus('Navigate to a website to analyze privacy policies', 'scanning');
+                this.analyzeBtn.disabled = true;
+                return;
+            }
 
             // Check if current page can be analyzed
             if (this.isRestrictedUrl(tab.url)) {
@@ -61,17 +90,49 @@ class PopupController {
                 return;
             }
 
+            // Check if page has privacy policy content with optimized retry logic
+            let hasPrivacyContent = false;
+            let attempts = 0;
+            const maxAttempts = 3; // Reduced from 5 for faster response
+
+            while (attempts < maxAttempts && !hasPrivacyContent) {
+                attempts++;
+                try {
+                    const response = await Promise.race([
+                        chrome.tabs.sendMessage(tab.id, { action: 'checkContent' }),
+                        new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 2000))
+                    ]);
+                    hasPrivacyContent = response?.hasPrivacyContent || false;
+                    if (hasPrivacyContent) break; // Success, exit retry loop
+                } catch (error) {
+
+                    // On first failure, give content script more time to initialize
+                    if (attempts === 1) {
+                        await new Promise(resolve => setTimeout(resolve, 3000));
+                    } else {
+                        // Shorter waits for subsequent attempts
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    }
+                }
+            }
+
+            // If still no content detected, log for debugging
+            if (!hasPrivacyContent && attempts >= maxAttempts) {
+            }
+
             const result = await chrome.storage.local.get([`analysis_${tab.id}`]);
             const analysis = result[`analysis_${tab.id}`];
 
             if (analysis) {
                 await this.displayResults(analysis);
+                this.analyzeBtn.disabled = false;
+            } else if (hasPrivacyContent) {
+                this.updateStatus('Privacy policy content detected - Ready to analyze', 'scanning');
+                this.analyzeBtn.disabled = false;
             } else {
-                this.updateStatus('Ready to analyze privacy policies', 'scanning');
+                this.updateStatus('Navigate to a website to analyze privacy policies', 'scanning');
+                this.analyzeBtn.disabled = true;
             }
-
-            // Enable analyze button for valid URLs
-            this.analyzeBtn.disabled = false;
 
         } catch (error) {
             console.error('Error loading status:', error);
@@ -85,7 +146,14 @@ class PopupController {
             this.analyzeBtn.disabled = true;
             this.updateStatus('Starting analysis...', 'scanning');
 
-            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            const tab = await this.getCurrentTab();
+
+            if (!tab) {
+                this.updateStatus('No website tab found for analysis', 'error');
+                this.showLoading(false);
+                this.analyzeBtn.disabled = false;
+                return;
+            }
 
             // Check if the current URL is a restricted Chrome page
             if (this.isRestrictedUrl(tab.url)) {
@@ -234,7 +302,12 @@ class PopupController {
 
     async showAnalysisPanel() {
         try {
-            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            const tab = await this.getCurrentTab();
+
+            if (!tab) {
+                alert('No suitable tab found for showing analysis results.');
+                return;
+            }
 
             // First try using message passing (more reliable)
             try {
