@@ -4,20 +4,21 @@ A sophisticated Chrome extension that combines AI-powered analysis with pattern-
 
 ## Features
 
-- **🤖 AI-Powered Analysis**: Integrated with Google Gemini 2.0 Flash for intelligent privacy policy analysis
-- **🔍 Smart Detection**: Automatically detects privacy policies and terms of service pages
-- **🎯 Dual Analysis Engine**: Combines AI insights with robust pattern-based detection
-- **💡 Expert Legal Suggestions**: Provides actionable legal advice for each identified issue
-- **✨ Interactive Highlighting**: Advanced text highlighting with fuzzy matching and smooth scrolling
-- **🏗️ Professional UI**: Icon-based branding with floating analysis panels
-- **⚙️ Highly Customizable**: Configurable AI providers, analysis depth, and severity filtering
-- **🔧 Modern Architecture**: ES6 modular design with dynamic loading and fallback systems
+- **AI-Powered Analysis**: Integrated with Google Gemini 2.0 Flash for intelligent privacy policy analysis
+- **Smart Detection**: Automatically detects privacy policies and terms of service pages
+- **Dual Analysis Engine**: Combines AI insights with robust pattern-based detection
+- **Expert Legal Suggestions**: Provides actionable legal advice for each identified issue
+- **Interactive Highlighting**: Advanced text highlighting with fuzzy matching and smooth scrolling
+- **Professional UI**: Icon-based branding with floating analysis panels
+- **Highly Customizable**: Configurable AI providers, analysis depth, and severity filtering
+- **Modern Architecture**: ES6 modular design with dynamic loading and fallback systems
 
 ## Installation
 
 ### From Source (Development)
 
 1. Clone this repository:
+
    ```bash
    git clone https://github.com/starsbro/extensions.git
    cd extensions/privacy-policy-analyzer
@@ -33,11 +34,12 @@ A sophisticated Chrome extension that combines AI-powered analysis with pattern-
 
 ### From Chrome Web Store
 
-*Coming soon - the extension will be available on the Chrome Web Store after review.*
+_Coming soon - the extension will be available on the Chrome Web Store after review._
 
 ## How to Use
 
 ### Quick Start
+
 1. **Install the extension** following the installation steps above
 2. **Configure AI (Optional)**: Go to Settings to add your Gemini API key for enhanced AI analysis
 3. **Visit any privacy policy page** - the extension auto-detects policy pages
@@ -47,12 +49,14 @@ A sophisticated Chrome extension that combines AI-powered analysis with pattern-
 ### Analysis Options
 
 **Manual Analysis**
+
 1. Click the extension icon in your Chrome toolbar
-2. Click "Analyze Current Page" 
+2. Click "Analyze Current Page"
 3. Wait for analysis to complete (supports both AI and pattern-based analysis)
 4. View results in the floating analysis panel
 
-**AI-Enhanced Analysis** 
+**AI-Enhanced Analysis**
+
 1. Go to Settings (right-click extension icon → Options)
 2. Add your Gemini API key under "AI Provider Configuration"
 3. Choose analysis depth (Quick/Standard/Detailed)
@@ -61,6 +65,7 @@ A sophisticated Chrome extension that combines AI-powered analysis with pattern-
 ### Interactive Results Panel
 
 The extension displays results in a professional floating panel featuring:
+
 - **Clickable Issue Cards**: Click any issue to highlight the relevant text on the page
 - **Severity-Based Filtering**: Filter by High/Medium/Low priority issues
 - **Smart Text Highlighting**: Advanced fuzzy matching finds and highlights problematic clauses
@@ -69,11 +74,13 @@ The extension displays results in a professional floating panel featuring:
 ### Understanding Results
 
 The extension categorizes issues by severity:
-- **🔴 High Priority**: Critical privacy concerns (data sharing, indefinite retention)
-- **🟡 Medium Priority**: Moderate concerns (tracking, policy changes)
-- **🟢 Low Priority**: Minor issues or unclear language
+
+- **High Priority**: Critical privacy concerns (data sharing, indefinite retention)
+- **Medium Priority**: Moderate concerns (tracking, policy changes)
+- **Low Priority**: Minor issues or unclear language
 
 Each issue includes:
+
 - **Description**: What the problem is
 - **Legal Suggestion**: Actionable advice
 - **Context**: Where the issue was found in the policy
@@ -83,26 +90,31 @@ Each issue includes:
 The extension identifies common concerning patterns:
 
 ### Data Sharing
+
 - Third-party data sharing or selling
 - Broad sharing with "partners" or "affiliates"
 - Vague data transfer language
 
 ### Data Retention
+
 - Indefinite or permanent data storage
 - Unclear retention periods
 - No deletion guarantees
 
 ### User Rights
+
 - Limited access to your data
 - Restricted deletion rights
 - No data portability options
 
 ### Security
+
 - Vague security measures
 - No encryption guarantees
 - "Reasonable efforts" language
 
 ### Policy Changes
+
 - Unilateral policy modifications
 - No notice requirements
 - Automatic consent assumptions
@@ -110,12 +122,13 @@ The extension identifies common concerning patterns:
 ## Configuration
 
 Access settings by:
+
 1. Right-clicking the extension icon → "Options"
 2. Or clicking "Settings" in the popup
 
 ### Available Settings
 
-- **AI Provider Configuration**: 
+- **AI Provider Configuration**:
   - **Gemini API Integration**: Add your Gemini API key for AI-powered analysis
   - **Analysis Depth**: Choose Quick, Standard, or Detailed AI analysis
   - **Automatic Fallback**: Seamless fallback to pattern-based analysis if AI fails
@@ -154,12 +167,14 @@ The extension uses a sophisticated modular architecture:
 ### Dual Analysis Engine
 
 **1. Gemini AI Analysis**
+
 - Integrates with Google's Gemini 2.0 Flash API
 - Intelligent privacy policy interpretation
 - Advanced JSON recovery for malformed API responses
 - Automatic retry logic with exponential backoff
 
-**2. Pattern-Based Analysis** 
+**2. Pattern-Based Analysis**
+
 - Robust regex pattern matching for 15+ privacy concern categories
 - Serves as reliable fallback when AI is unavailable
 - Comprehensive coverage of GDPR, CCPA, and general privacy concerns
@@ -167,6 +182,7 @@ The extension uses a sophisticated modular architecture:
 ### Advanced Text Processing
 
 The extension features sophisticated text highlighting:
+
 - **Multi-tier Matching**: Exact → Partial → Fuzzy text matching
 - **Smart Scrolling**: Smooth navigation to highlighted text
 - **Context Awareness**: Intelligent text extraction avoiding navigation/ads
@@ -175,6 +191,7 @@ The extension features sophisticated text highlighting:
 ### Storage
 
 The extension uses Chrome's storage API:
+
 - **Sync Storage**: User settings (synced across devices)
 - **Local Storage**: Analysis results (per-tab, temporary)
 
@@ -244,6 +261,7 @@ privacy-policy-analyzer/
 ### Adding New Features
 
 **New Analysis Patterns**: Add to `built-in-analyzer.js`
+
 ```javascript
 {
   id: 'new_pattern_id',
@@ -257,6 +275,7 @@ privacy-policy-analyzer/
 ```
 
 **New AI Providers**: Create new analyzer module following `gemini-analyzer.js` pattern
+
 ```javascript
 // scripts/openai-analyzer.js
 export class OpenAIAnalyzer {
@@ -268,12 +287,12 @@ export class OpenAIAnalyzer {
 
 ### Extension Architecture Benefits
 
-- ✅ **Maintainable**: ES6 modules enable easy feature additions
-- ✅ **Scalable**: Modular background scripts support growth  
-- ✅ **Reliable**: Multiple fallback mechanisms ensure functionality
-- ✅ **Professional**: Icon-based branding and polished UI
-- ✅ **Intelligent**: AI integration with pattern-based backup
-- ✅ **Secure**: Minimal permissions and encrypted storage
+- **Maintainable**: ES6 modules enable easy feature additions
+- **Scalable**: Modular background scripts support growth
+- **Reliable**: Multiple fallback mechanisms ensure functionality
+- **Professional**: Icon-based branding and polished UI
+- **Intelligent**: AI integration with pattern-based backup
+- **Secure**: Minimal permissions and encrypted storage
 
 ## Contributing
 
@@ -299,21 +318,24 @@ We welcome contributions! Please:
 This extension is designed with privacy as a core principle:
 
 ### What We DO:
-- ✅ **Local Analysis**: Most analysis happens in your browser
-- ✅ **Encrypted Storage**: API keys stored in Chrome's secure storage
-- ✅ **Minimal Permissions**: Only requests essential browser permissions
-- ✅ **User Control**: You choose when to use AI vs local analysis
-- ✅ **Transparent Code**: Open source architecture you can review
-- ✅ **Automatic Cleanup**: Analysis data cleaned up automatically
+
+- **Local Analysis**: Most analysis happens in your browser
+- **Encrypted Storage**: API keys stored in Chrome's secure storage
+- **Minimal Permissions**: Only requests essential browser permissions
+- **User Control**: You choose when to use AI vs local analysis
+- **Transparent Code**: Open source architecture you can review
+- **Automatic Cleanup**: Analysis data cleaned up automatically
 
 ### What We DON'T Do:
-- ❌ **No Tracking**: We don't track your browsing or behavior
-- ❌ **No Data Collection**: No personal information collected or stored
-- ❌ **No External Servers**: Only communicates with AI provider you configure
-- ❌ **No Background Uploads**: No automatic data transmission
-- ❌ **No Third-Party Analytics**: No tracking or analytics services
+
+- **No Tracking**: We don't track your browsing or behavior
+- **No Data Collection**: No personal information collected or stored
+- **No External Servers**: Only communicates with AI provider you configure
+- **No Background Uploads**: No automatic data transmission
+- **No Third-Party Analytics**: No tracking or analytics services
 
 ### AI Provider Privacy:
+
 - When using Gemini AI: Policy text is sent to Google's Gemini API for analysis
 - When using Local Analysis: No external communication whatsoever
 - You have full control over when AI analysis is used
@@ -334,7 +356,8 @@ MIT License - see LICENSE file for details.
 
 ## Roadmap
 
-### ✅ Completed (Current Version)
+### Completed (Current Version)
+
 - ES6 modular architecture with dynamic loading
 - Gemini 2.0 Flash AI integration with robust fallbacks
 - Professional icon-based branding and UI
@@ -345,6 +368,7 @@ MIT License - see LICENSE file for details.
 - Pattern-based analysis covering 15+ privacy concern categories
 
 ### Version 1.1 (Next Release)
+
 - Additional AI provider support (OpenAI GPT, Anthropic Claude)
 - Enhanced GDPR/CCPA compliance analysis
 - Export analysis reports (PDF/JSON)
@@ -352,6 +376,7 @@ MIT License - see LICENSE file for details.
 - Performance optimizations and caching improvements
 
 ### Version 1.2 (Future)
+
 - Multi-language interface support
 - Terms of Service analysis capabilities
 - Cookie policy analysis integration
@@ -359,28 +384,29 @@ MIT License - see LICENSE file for details.
 - Batch analysis for multiple policies
 
 ### Version 2.0 (Long-term Vision)
+
 - Cross-browser compatibility (Firefox, Safari)
 - Privacy dashboard with trending analysis
-- Integration with legal databases and precedents  
+- Integration with legal databases and precedents
 - Real-time policy change monitoring
 - Advanced reporting and analytics features
 
 ---
 
-## Extension Status: Production Ready 🚀
+## Extension Status: Production Ready
 
 This Privacy Policy Analyzer represents a **mature, production-ready Chrome extension** featuring:
 
-- **🏗️ Modern Architecture**: ES6 modules with sophisticated bootloader system
-- **🤖 AI Integration**: Live Gemini 2.0 Flash API with intelligent fallbacks  
-- **💎 Professional Quality**: Icon-based branding and polished user interface
-- **🛡️ Security First**: Minimal permissions and encrypted storage
-- **⚡ Performance Optimized**: Efficient algorithms with smart caching
-- **🔧 Developer Friendly**: Well-documented modular codebase
-- **🧪 Thoroughly Tested**: Comprehensive error handling and edge case coverage
+- **Modern Architecture**: ES6 modules with sophisticated bootloader system
+- **AI Integration**: Live Gemini 2.0 Flash API with intelligent fallbacks
+- **Professional Quality**: Icon-based branding and polished user interface
+- **Security First**: Minimal permissions and encrypted storage
+- **Performance Optimized**: Efficient algorithms with smart caching
+- **Developer Friendly**: Well-documented modular codebase
+- **Thoroughly Tested**: Comprehensive error handling and edge case coverage
 
 **Ready for Chrome Web Store submission and real-world deployment.**
 
 ---
 
-**Made with ❤️ for privacy protection and user empowerment**
+**Made with heart for privacy protection and user empowerment**

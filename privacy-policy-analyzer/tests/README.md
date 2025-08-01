@@ -88,19 +88,19 @@ npx playwright test tests/diagnostic-test.spec.js --headed --timeout=120000
 
 ### Content Detection
 
-- ✅ Privacy policy content identification
-- ✅ False positive prevention (non-privacy pages)
-- ✅ Content type accuracy
+- Privacy policy content identification
+- False positive prevention (non-privacy pages)
+- Content type accuracy
 
 ### Privacy Analysis
 
-- ✅ **Data Collection Practices**
+- **Data Collection Practices**
 
   - Personal information (name, email, address)
   - Usage data (browser, IP, pages visited)
   - Third-party data (LinkedIn, public sources)
 
-- ✅ **Key Privacy Concerns**
+- **Key Privacy Concerns**
 
   - Third-party data sharing
   - Cookie usage and tracking
@@ -108,52 +108,52 @@ npx playwright test tests/diagnostic-test.spec.js --headed --timeout=120000
   - Data retention periods
   - Marketing and profiling practices
 
-- ✅ **User Rights Detection**
+- **User Rights Detection**
   - UK/GDPR rights (access, correct, delete, object)
   - California privacy rights (know, opt-out, delete)
   - China PIPL rights (comprehensive set)
 
 ### The Economist Specific Features
 
-- ✅ **Subscription Services**
+- **Subscription Services**
 
   - Account management
   - Billing and payment processing
   - Service notifications
 
-- ✅ **Editorial Operations**
+- **Editorial Operations**
 
   - Journalism and source protection
   - Contributor data handling
   - Editorial integrity
 
-- ✅ **Business Services**
+- **Business Services**
 
   - EIU (Economist Intelligence Unit)
   - Corporate Network services
   - Event management
   - Educational programs
 
-- ✅ **Global Operations**
+- **Global Operations**
   - International data transfers
   - Multi-jurisdiction compliance
   - Regional privacy laws
 
 ### Quality Metrics
 
-- ✅ **Analysis Depth**
+- **Analysis Depth**
 
   - Word count validation (>100 words)
   - Topic coverage assessment
   - Structure analysis
 
-- ✅ **Performance**
+- **Performance**
 
   - Page load time monitoring
   - Analysis completion time
   - Resource usage optimization
 
-- ✅ **Accuracy**
+- **Accuracy**
   - Content detection precision
   - Privacy concern identification
   - Rights explanation completeness
@@ -169,7 +169,7 @@ npx playwright test tests/diagnostic-test.spec.js --headed --timeout=120000
 
 ### Expected Outcomes
 
-#### ✅ If Properly Configured
+#### If Properly Configured
 
 - Privacy policy content detected ✓
 - Analyze button enabled ✓

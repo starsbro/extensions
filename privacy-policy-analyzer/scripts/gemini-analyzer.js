@@ -165,7 +165,7 @@ ${textContent.substring(0, 8000)}`; // Limit text to avoid API limits
         if (issuesStart === -1) return null;
 
         const issuesArray = [];
-        let currentPos = issuesStart + 11; // After '"issues": ['
+        let currentPos = issuesStart + 11;
         let braceCount = 0;
         let inString = false;
         let escape = false;

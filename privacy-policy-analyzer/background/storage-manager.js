@@ -38,7 +38,6 @@ export class StorageManager {
 
     static analyzeUrl(url, sendResponse) {
         try {
-
             // This could be extended to analyze URLs without visiting them
             // For now, we'll just return basic URL analysis
             const analysis = {

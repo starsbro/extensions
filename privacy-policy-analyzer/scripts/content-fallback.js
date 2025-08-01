@@ -85,7 +85,6 @@ export class SimpleTextExtractor {
     }
 
     static hasPrivacyContent() {
-        console.log('SimpleTextExtractor: Checking for privacy content...');
 
         const text = document.body.textContent || document.body.innerText || '';
         const lowerText = text.toLowerCase();
@@ -132,11 +131,6 @@ export class SimpleTextExtractor {
         }
 
         const hasContent = matchCount >= 3;
-
-        console.log('SimpleTextExtractor: Content length:', text.length);
-        console.log('SimpleTextExtractor: Found indicators:', foundIndicators);
-        console.log('SimpleTextExtractor: Match count:', matchCount);
-        console.log('SimpleTextExtractor: Final detection result:', hasContent);
 
         return hasContent;
     }
@@ -229,7 +223,6 @@ export class SimplePrivacyPolicyAnalyzer {
                 sendResponse({ success: true });
             } else if (message.action === 'checkContent') {
                 const hasContent = SimpleTextExtractor.hasPrivacyContent();
-                console.log('Privacy Policy Analyzer (Fallback): Content check result:', hasContent);
                 sendResponse({ hasPrivacyContent: hasContent });
             }
             return true;
@@ -345,7 +338,7 @@ export class SimplePrivacyPolicyAnalyzer {
 
         panel.innerHTML = `
             <div style="background: #2196F3; color: white; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;">
-                <h3 style="margin: 0; font-size: 16px;">🛡️ Privacy Analysis</h3>
+                <h3 style="margin: 0; font-size: 16px;"> Privacy Analysis</h3>
                 <button id="simple-close-btn" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; padding: 0; width: 24px; height: 24px;">×</button>
             </div>
             <div style="padding: 16px; overflow-y: auto; max-height: calc(70vh - 60px);">
@@ -381,7 +374,7 @@ export class SimplePrivacyPolicyAnalyzer {
 
     renderSimpleIssues(issues) {
         if (issues.length === 0) {
-            return '<p style="color: green;">✅ No major concerns detected!</p>';
+            return '<p style="color: green;">No major concerns detected!</p>';
         }
 
         return issues.map((issue, index) => `

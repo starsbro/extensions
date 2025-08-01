@@ -8,22 +8,17 @@ import { GeminiAnalyzer } from './gemini-analyzer.js';
 
 export class PrivacyPolicyAnalyzer {
     constructor() {
-        console.log('Privacy Policy Analyzer: PrivacyPolicyAnalyzer constructor called');
         this.analysisData = null;
         this.isAnalyzing = false;
         this.progressElement = null;
 
         this.init();
-        console.log('Privacy Policy Analyzer: PrivacyPolicyAnalyzer initialized successfully');
     }
 
     init() {
-        console.log('Privacy Policy Analyzer: init() method called');
 
         // Make analyzer available globally for popup communication
         window.privacyAnalyzer = this;
-        console.log('Privacy Policy Analyzer: window.privacyAnalyzer set to:', this);
-        console.log('Privacy Policy Analyzer: Verification - window.privacyAnalyzer exists:', typeof window.privacyAnalyzer !== 'undefined');
 
         // Register message listener multiple times to ensure it sticks
         this.registerMessageListener();
@@ -57,7 +52,7 @@ export class PrivacyPolicyAnalyzer {
                 sendResponse(response);
             }
             return true;
-        }); console.log('Privacy Policy Analyzer: Message listener registered successfully');
+        });
     }
 
     reportContentStatus() {
@@ -129,7 +124,9 @@ export class PrivacyPolicyAnalyzer {
         }
 
         this.isAnalyzing = false;
-    } async storeResults(analysis) {
+    }
+
+    async storeResults(analysis) {
         try {
             const tabId = await Utils.getCurrentTabId();
             await chrome.storage.local.set({
@@ -303,7 +300,7 @@ export class PrivacyPolicyAnalyzer {
 
     renderIssuesList(issues) {
         if (issues.length === 0) {
-            return '<p class="no-issues">✅ No major privacy concerns detected!</p>';
+            return '<p class="no-issues">No major privacy concerns detected!</p>';
         }
 
         return issues.map((issue, index) => `

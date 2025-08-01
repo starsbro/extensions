@@ -20,7 +20,6 @@ export class ApiTester {
 
         for (const model of models) {
             try {
-
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
                     method: 'POST',
                     headers: {
@@ -65,7 +64,6 @@ export class ApiTester {
                     }
                 }
             } catch (error) {
-
                 // If this is the last model, send the error
                 if (model === models[models.length - 1]) {
                     sendResponse({ success: false, error: error.message });

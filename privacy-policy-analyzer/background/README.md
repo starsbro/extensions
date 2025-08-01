@@ -19,36 +19,42 @@ background-original.js      # Original monolithic file (backup)
 ## Module Responsibilities
 
 ### `installation-handler.js`
+
 - Handles first-time installation
 - Sets up default settings
 - Opens welcome page
 - Manages extension updates and migrations
 
 ### `message-handler.js`
+
 - Routes incoming messages to appropriate handlers
 - Manages message response patterns (sync vs async)
 - Centralizes all message action handling
 - Imports and delegates to other managers
 
 ### `settings-manager.js`
+
 - Settings storage and retrieval
 - Default settings management
 - Settings validation and error handling
 - Chrome storage sync operations
 
 ### `storage-manager.js`
+
 - Analysis data cleanup and management
 - Tab-specific data clearing
 - URL analysis functionality
 - Privacy-related URL detection
 
 ### `api-tester.js`
+
 - API key validation for different providers
 - Gemini API testing with model fallback
 - Error handling for API failures
 - API response validation
 
 ### `background.js` (Main)
+
 - Orchestrates all modules
 - Sets up Chrome extension listeners
 - Manages lifecycle events
@@ -56,11 +62,11 @@ background-original.js      # Original monolithic file (backup)
 
 ## Benefits of This Architecture
 
-✅ **Single Responsibility**: Each module has one clear purpose
-✅ **Easier Testing**: Components can be tested in isolation
-✅ **Better Debugging**: Issues can be traced to specific modules
-✅ **Maintainability**: Changes affect only relevant modules
-✅ **Scalability**: Easy to add new message handlers or features
+**Single Responsibility**: Each module has one clear purpose
+**Easier Testing**: Components can be tested in isolation
+**Better Debugging**: Issues can be traced to specific modules
+**Maintainability**: Changes affect only relevant modules
+**Scalability**: Easy to add new message handlers or features
 
 ## Message Flow
 
@@ -79,6 +85,7 @@ background-original.js      # Original monolithic file (backup)
 ## Usage
 
 The refactored version handles all the same messages:
+
 - `ping` - Health check
 - `getCurrentTabId` - Tab identification
 - `getSettings`/`saveSettings` - Settings management
